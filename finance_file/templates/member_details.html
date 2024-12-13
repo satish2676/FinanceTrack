@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Member</title>
+  <link rel="stylesheet" href="{% static 'member_details.css' %}">
+</head>
+<body>
+  <div class="member-details">
+    <h2>Member Details</h2>
+    <p><strong>Book No:</strong> {{ member.loan_id }}</p>
+    <p><strong>Customer Name:</strong> {{ member.name }}</p>
+    <p><strong>Phone Number:</strong> {{ member.mobile }}</p>
+    <p><strong>Loan Disbursement Amount:</strong> Rs.{{ member.loan_disberment_amount }}</p>
+    <p><strong>Address:</strong> {{ member.address }}</p>
+    <p><strong>Loan Start Date:</strong> {{ member.loan_date|date:"Y-m-d" }}</p>
+  </div>
+
+  <div class="loan-schedule">
+    <h2>Disbursement Schedule</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Disbursement Date</th>
+          <th>Paid Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for schedule in schedules %}
+        <tr class="{% if schedule.paid_status == 'Unpaid' %}highlight-unpaid{% endif %}">
+          <td>{{ schedule.day }}</td>
+          <td>{{ schedule.disbursement_date }}</td>
+          <td>{{ schedule.paid_status }}</td>
+          <td>
+            {% if schedule.paid_status == 'Unpaid' %}
+            <!-- Form to mark the day as paid -->
+            <form method="post" action="{% url 'mark_paid' member.id schedule.disbursement_date %}">
+              {% csrf_token %}
+              <button type="submit" class="action-btn">Mark Paid</button>
+            </form>
+            {% else %}
+            <span class="status-paid">Already Paid</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

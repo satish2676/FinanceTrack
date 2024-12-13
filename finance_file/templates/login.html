@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register & Login Form</title>
+  <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-tabs">
+      <button class="tab-btn active" onclick="showForm('register')">Register</button>
+      <button class="tab-btn" onclick="showForm('login')">Login</button>
+    </div>
+
+    <div class="form-content">
+      <!-- Register Form -->
+      <form action="{% url 'admin_register' %}" method="POST" id="register-form" class="form active">
+        {% csrf_token %}
+        <h2>Register</h2>
+        <label for="admin_name">Name:</label>
+        <input type="text" id="admin_name" name="admin_name" placeholder="Enter your name" required>
+        
+        <label for="admin_mobile_register">Mobile No:</label>
+        <input type="tel" id="admin_mobile_register" name="admin_mobile" placeholder="Enter your Mobile No" pattern="[0-9]{10}" required>
+        
+        <label for="admin_password_register">Password:</label>
+        <input type="password" id="admin_password_register" name="admin_password" placeholder="Enter your password" required>
+        
+        <button type="submit" class="form-btn">Register</button>
+        
+        <div>
+            {% for message in messages %}
+                <h3 class="message">{{ message }}</h3>
+            {% endfor %}
+        </div>
+      </form>
+
+      <!-- Login Form -->
+      <form action="{% url 'login' %}" method="POST" id="login-form" class="form">
+        {% csrf_token %}
+        <h2>Login</h2>
+        <label for="admin_mobile_login">Mobile No:</label>
+        <input type="tel" id="admin_mobile_login" name="admin_mobile_login" placeholder="Enter your Mobile No" pattern="[0-9]{10}" required>
+        
+        <label for="admin_password_login">Password:</label>
+        <input type="password" id="admin_password_login" name="admin_password" placeholder="Enter your password" required>
+        
+        <label for="admin_code">Code:</label>
+        <input type="text" id="admin_code" name="admin_code" placeholder="Enter the admin Code" required>
+        
+        <button type="submit" class="form-btn">Login</button>
+        
+        <div>
+            {% for message in messages %}
+                <h3 class="message">{{ message }}</h3>
+            {% endfor %}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function showForm(formId) {
+      // Remove active class from all forms and buttons
+      document.querySelectorAll('.form').forEach(form => form.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  
+      // Add active class to the selected form and button
+      document.getElementById(formId + '-form').classList.add('active');
+      document.querySelector(`button[onclick="showForm('${formId}')"]`).classList.add('active');
+    }
+  </script>
+</body>

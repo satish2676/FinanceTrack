@@ -1,0 +1,60 @@
+.member-details, .loan-schedule {
+    background-color: white;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+    color: #4CAF50;
+    display: flex;
+    justify-content: center; 
+    align-items: center;      
+    height: 10vh;    
+    font-size: 2rem;
+  }
+  
+  p {
+    margin: 0.5rem 0;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 0.8rem;
+  }
+  
+  table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  footer {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 0;
+  }
+header h1{
+    color: white;
+    margin-bottom: 0;
+    font-size: 2rem; background-color: #4CAF50;
+}
+  
+    
