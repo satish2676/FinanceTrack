@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Member</title>
+  <link rel="stylesheet" href="{% static 'member_details.css' %}">
+  <style>
+    .button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .button-container {
+        text-align: right;
+        margin-right: 20px;
+    }
+</style>
+</head>
+<body>
+  <div class="member-details">
+    <h2>Member Details</h2>
+    <p><strong>Customer ID:</strong> {{ member.loan_id }}</p>
+    <p><strong>Customer Name:</strong> {{ member.name }}</p>
+    <p><strong>Phone Number:</strong> {{ member.mobile }}</p>
+    <p><strong>Invoice Amount:</strong> Rs.{{ member.loan_disbursement_amount }}</p>
+    <p><strong>Interest Amount:</strong> Rs.{{ member.interest_amount }}</p>
+    <p><strong>Total Invoice Amount:</strong> Rs.{{ member.total_invoice_amount }}</p>
+    <p><strong>Recovery Amount:</strong> Rs.{{ member.recovery_amount }}</p>
+    <p><strong>Balance Amount:</strong> {{ member.balance_amount }}</p>
+    <p><strong>Address:</strong> {{ member.address }}</p>
+    <p><strong>Invoice Start Date:</strong> {{ member.loan_date|date:"Y-m-d" }}</p>
+    <p><strong>Invoice End Date:</strong> {{ member.end_date|date:"Y-m-d" }}</p>
+    <p><strong>No of Paid Days:</strong> {{ member.paid_days }}</p>
+    <p><strong>No of Unpaid Days:</strong> {{ member.unpaid_days }}</p>
+    <!--<p><strong>Over Due Paid Days:</strong> Rs.{{ member.skipped_days }}</p>-->
+  </div>
+
+  <div class="loan-schedule">
+    <h2>Disbursement Schedule</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Schedule Dates</th>
+          <th>Paid Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for schedule in schedules %}
+        <tr class="{% if schedule.paid_status == 'Unpaid' %}highlight-unpaid{% endif %}">
+          <td>{{ schedule.day }}</td>
+          <td>{{ schedule.disbursement_date }}</td>
+          <td>{{ schedule.paid_status }}</td>
+          <td>
+            {% if schedule.paid_status == 'Unpaid' %}
+            <!-- Form to mark the day as paid -->
+            <form method="post" action="{% url 'mark_paid' member.id schedule.disbursement_date %}">
+              {% csrf_token %}
+              <button type="submit" class="action-btn">Mark Paid</button>
+            </form>
+            {% else %}
+            <span class="status-paid">Already Paid</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <footer>
+    <p>&copy; 2025 Finance Management System</p>
+  </footer>
+</body>
+</html>

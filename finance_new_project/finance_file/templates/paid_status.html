@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Status</title>
+  <link rel="stylesheet" href="{% static 'paid_status.css' %}">
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color:#4CAF50;
+      color: white;
+      padding: 1em 0;
+      text-align: center;
+    }
+
+    main {
+      padding: 1em;
+    }
+
+    .status-container {
+      background-color: white;
+      padding: 1.5em;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 1em;
+    }
+
+    h1, h2 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+    }
+
+    /* Styling for paid/unpaid status */
+    .paid {
+      color: green;
+    }
+
+    .unpaid {
+      color: red;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 18px;
+      }
+
+      table th, table td {
+        font-size: 14px;
+      }
+
+      .status-container {
+        padding: 1em;
+      }
+
+      table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+
+    /* Mobile specific adjustments */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      table th, table td {
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      .status-container {
+        padding: 1em;
+        border-radius: 6px;
+      }
+
+      table td {
+        word-wrap: break-word;
+        overflow: hidden;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Payment Status for All Members</h1>
+  </header>
+  <main>
+    <div class="status-container">
+      <h2>Payment Details</h2>
+      <div class="total-paid-amount">
+        <h4>Total Amount Collected : {{ total_paid_amount }}</h4>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Customer ID </th>
+            <th>Member Name</th>
+            <th>Mobile</th>
+            <th>Date</th>
+            <th>Amount Collected</th>
+           
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for payment in payments %}
+          <tr>
+            <td>{{ payment.member.loan_id  }}</td>
+            <td>{{ payment.member.name  }}</td>
+            <td>{{ payment.member.mobile}}</td>
+            <td>{{ payment.today_date }}</td>
+            <td>{{ payment.member.paid_amount }}</td>
+          
+           
+            <td class="{% if payment.is_paid %}paid{% else %}unpaid{% endif %}">
+                {% if payment.is_paid %}
+                    <span class="paid">Paid</span>
+                {% else %}
+                    <span class="unpaid">Unpaid</span>
+                {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Finance Management System</p>
+  </footer>
+</body>
+</html>

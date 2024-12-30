@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register New Member</title>
+  <link rel="stylesheet" href="{%static 'register.css'%}">
+</head>
+<body>
+  <header>
+    <h1>Register New Member</h1>
+  </header>
+  <main>
+    <div class="form-container">
+      <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="loan_id">Customer ID</label>
+          <input type="text" id="loan_id" name="loan_id" placeholder="Enter Customer ID" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input type="tel" id="mobile" name="mobile" placeholder="Enter Mobile Number" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+          <label for="loan_disbursement_amount">Invoice Amount</label>
+          <input type="number" id="loan_disbursement_amount" name="loan_disbursement_amount" placeholder="Enter Invoice amount" required>
+        </div>
+        <div class="form-group">
+          <label for="interest_amount">Interest Amount</label>
+          <input type="number" id="interest_amount" name="interest_amount" placeholder="Enter Interest Amount" required>
+        </div>
+        <div class="form-group">
+          <label for="total_invoice_amount">Total Invoice Amount</label>
+          <input type="number" id="total_invoice_amount" name="total_invoice_amount" placeholder="Enter Total Invoice Amount" required>
+        </div>
+
+
+        <div class="form-group">
+          <label for="paid_amount">Amount Per Day</label>
+          <input type="number" id="paid_amount" name="paid_amount" placeholder="Enter amount per month " required>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <textarea id="address" name="address" placeholder="Enter Address" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="date">Loan Date</label>
+          <input type="date" id="date" name="date" placeholder="Enter Loan date" required>
+
+        </div>
+        <button type="submit">Register</button>
+        <div>
+          {% for message in messages %}
+          <h3>{{message}}</h3>
+          {% endfor %}
+      </div>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Finance Management System</p>
+  </footer>
+</body>
+</html>

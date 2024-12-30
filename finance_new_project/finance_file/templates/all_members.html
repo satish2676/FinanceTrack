@@ -1,0 +1,128 @@
+<!-- templates/view_all_members.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Members</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 90%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        td {
+            color: #555;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            padding: 10px 20px; /* Padding for a nice button size */
+            font-size: 16px; /* Adjust the font size */
+            text-align: center; /* Center text */
+            text-decoration: none; /* Remove underline */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+            cursor: pointer; /* Pointer cursor on hover */
+            margin: 20px;
+            margin-bottom:20px;
+        }
+    
+        .button:hover {
+            background-color: #45a049; /* Slightly darker green on hover */
+            transform: scale(1.05); /* Slight zoom-in effect */
+        }
+        footer {
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5rem 0;
+        }
+    
+        .button:active {
+            background-color: #3e8e41; /* Darker green when pressed */
+            transform: scale(0.98); /* Slightly smaller when clicked */
+        }
+
+        /* Make the table responsive */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            th, td {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>All Members</h1>
+    <a href="{% url 'export_all_members_excel' %}" class="button">Download Excel</a>
+    <table>
+        <thead>
+            <tr>
+                <th> ID</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Mobile No</th>
+                <th>Total Invoice Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>{{ member.loan_id }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.address }}</td>
+                    <td>{{ member.mobile }}</td>
+                    <td>{{ member.total_invoice_amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <footer>
+        <p>&copy; 2025 Finance Management System</p>
+    </footer>
+</body>
+</html>

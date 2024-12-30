@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .card h2 {
+      color: #e91e63;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: green;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AD Finance Management System</h1>
+  </header>
+  <main>
+    <div class="container">
+      <div class="card">
+        <h2>New Member</h2>
+        <p>Register a new member in the system.</p>
+        <a href="{%url 'register'%}">Add Member</a>
+      </div>
+      <div class="card">
+        <h2>View Member</h2>
+        <p>Search by mobile number.</p>
+        <a href="{%url 'view_members'%}">View Members</a>
+      </div>
+      <div class="card">
+        <h2>Daily Collection</h2>
+        <p>View and manage daily collections.</p>
+        <a href="{%url 'daily_collection'%}">View Collection</a>
+      </div>
+      <div class="card">
+        <h2>Paid Status</h2>
+        <p>Check the payment status of members.</p>
+        <a href="{%url 'paid_status'%}">Check Status</a>
+      </div>
+      <div class="card">
+        <h2>All Members</h2>
+        <p>View all member details.</p>
+        <a href="{%url 'all_members'%}">View all Members</a>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Finance Management System</p>
+  </footer>
+</body>
+</html>

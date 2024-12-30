@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Member</title>
+  <link rel="stylesheet" href="{% static 'view_members.css' %}">
+</head>
+<body>
+  <header>
+    <h1>View Member Details</h1>
+  </header>
+  <main>
+    <div class="search-form">
+      <form method="POST" action="{% url 'member_details' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="loan_id">Customer ID</label>
+          <input type="text" id="loan_id" name="loan_id" placeholder="Enter Customer ID" required>
+        </div>
+        <button type="submit">Search</button>
+        <div>
+          {% for message in messages %}
+            <h3>{{ message }}</h3>
+          {% endfor %}
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Finance Management System</p>
+  </footer>
+</body>
+</html>
